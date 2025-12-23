@@ -1,30 +1,27 @@
 
 
-import React, { useState } from "react";
-let counter=0;
+import React, { useEffect, useState } from "react";
+
 
 const Todo= function Todo(){
-  const [todos,setTodos]=useState([{
-    id:counter++,
-    title:"hi",
-    description:"hey there greets"
-  },{
-    id:counter++,
-    title:"bye",
-    description:"farewell greets"
-  },
-{   id:counter++,
-    title:"wassup",
-    description:"how are you?"
-}])
+  const [todos,setTodos]=useState(" ")
+  useEffect(()=>{
+    setInterval(
+    fetch("https://sum-server.100xdevs.com/todos")
+    .then(async(res)=>{
+        const json=await res.json();
+        setTodos(json.todos)
+    }),1000)
+  },[])
 
 function addTodo(){
     setTodos([...todos,{
-        id:counter++,
+      
         title:"new todo",
         description:"new todo added"
     }])
 }
+
   return <div>
     <button onClick={addTodo}>
         tap to add new
