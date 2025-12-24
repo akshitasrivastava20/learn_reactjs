@@ -28,6 +28,7 @@ app.get('/todo/:id',async(req,res)=>{
 //create a new todo
 app.post('/todos',async(req,res)=>{
 await todo.create({
+      
         title:req.body.title,
         description:req.body.description
     })
