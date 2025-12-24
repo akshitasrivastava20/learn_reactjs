@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import axios from 'axios';
 export function CreateTodo(){
     const [title,setTitle]=useState("");
     const [description,setDescription]=useState("");
@@ -20,16 +20,7 @@ export function CreateTodo(){
             setDescription(e.target.value);
         }} /> <br/>
          <button onClick={()=>{
-            fetch('http://localhost:3000/todo',{
-                method:"POST",
-                body:JSON.stringify({
-                    title:title,
-                    description:description
-                }),
-                headers:{
-                    "Content-Type":"application/json"
-                }
-            }).then(async function(res){
+            axios.get("http://localhost:3000/todo").then(async function(res){
                 const jsonres = await res.json()
                 console.log(jsonres)
                 alert("todo added")

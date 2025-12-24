@@ -1,40 +1,24 @@
+import { useEffect } from "react"
+import axios from "axios"
+import { useState } from "react"
 
 
-import React, { useEffect, useState } from "react";
 
-
-const Todo= function Todo(){
-  const [todos,setTodos]=useState(" ")
+export function Todo({id}){
+  const[todo,setTodo]=useState({});
   useEffect(()=>{
-    setInterval(
-    fetch("https://sum-server.100xdevs.com/todos")
-    .then(async(res)=>{
-        const json=await res.json();
-        setTodos(json.todos)
-    }),1000)
-  },[])
+   
+    axios.get(`http://localhost:3000/todo/${id}`)
+    .then((res)=>{
+      setTodo(res.data.todo)
+    })
+  },[id])
 
-function addTodo(){
-    setTodos([...todos,{
-      
-        title:"new todo",
-        description:"new todo added"
-    }])
-}
-
+ 
+  
   return <div>
-    <button onClick={addTodo}>
-        tap to add new
-    </button>
-   {
-    todos.map((todo)=>(
-        <div key={todo.id}>
-        <h1>{todo.title}</h1>
-        <h2>{todo.description}</h2>
-        </div>
-    ))
-   }
+    <h1>{todo.title}</h1>
+    <h2>{todo.description}</h2>
   </div>
-}
 
-export default React.memo(Todo);
+}
