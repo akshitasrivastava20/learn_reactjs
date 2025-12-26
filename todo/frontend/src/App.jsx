@@ -34,7 +34,7 @@ function Todo({ id }) {
     if (!id) return;
 
     axios
-      .get(`http://localhost:3000/todo/${id}`)
+      .get(`http://localhost:3000/toldo/${id}`)
       .then((res) => {
         setTodo(res.data.todo); // must be an object
       })
